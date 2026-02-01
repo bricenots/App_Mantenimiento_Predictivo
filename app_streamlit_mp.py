@@ -192,21 +192,77 @@ st.success(
 # =========================================================
 # SECCIÓN ACADÉMICA (OCULTA)
 # =========================================================
-with st.expander("📘 Sección académica (evaluación)"):
+with st.expander("📘 Sección académica (evaluación / respaldo técnico)"):
     st.markdown("""
-**Modelo**
-- Clasificador supervisado (Random Forest).
-- Entrenado con AI4I 2020.
+### Modelo
 
-**Notas**
-- Temperatura usada como variable contextual.
-- La app prioriza decisión operativa.
+- **Tipo:** Clasificador supervisado (**Random Forest**).
+- **Dataset:** AI4I 2020 – Mantenimiento Predictivo.
+- **Objetivo:** Predicción binaria de falla operacional.
+- **Justificación del modelo:**  
+  Se selecciona Random Forest por su robustez ante ruido, su buen desempeño en datos tabulares
+  y su estabilidad frente a variables correlacionadas, priorizando recall de la clase Falla.
+
+---
+
+### Tratamiento de variables
+
+- **Torque, desgaste y velocidad:**  
+  Variables principales de decisión operativa.
+- **Temperatura (ambiente y proceso):**  
+  Utilizada como **variable contextual**, no como palanca primaria de control.
+  Su rol es modular el riesgo, no dispararlo.
+
+---
+
+### Métricas de desempeño
+
 """)
 
-    c1, c2 = st.columns(2)
-    c1.metric("Accuracy", round(metrics["accuracy"], 3))
-    c2.metric("Recall (Falla)", round(metrics["recall_failure"], 3))
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Accuracy", round(metrics["accuracy"], 3))
+    with col2:
+        st.metric("Recall (Falla)", round(metrics["recall_failure"], 3))
 
-    st.write("Matriz de confusión:", metrics["confusion_matrix"])
+    st.markdown("""
+**Interpretación de métricas**
 
-st.caption("App operativa – apoyo a decisión, no control automático.")
+- La **alta accuracy** indica buen ajuste global.
+- El **recall de falla** es la métrica prioritaria, ya que el costo operacional de no detectar
+  una falla (FN) es mayor que el de una falsa alarma (FP).
+
+---
+
+### Matriz de confusión
+""")
+
+    cm = np.array(metrics["confusion_matrix"])
+
+    fig, ax = plt.subplots(figsize=(4.5, 3.5))
+    im = ax.imshow(cm, cmap="Blues")
+
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            ax.text(j, i, cm[i, j], ha="center", va="center", fontsize=11)
+
+    ax.set_xticks([0, 1])
+    ax.set_yticks([0, 1])
+    ax.set_xticklabels(["No Falla", "Falla"])
+    ax.set_yticklabels(["No Falla", "Falla"])
+    ax.set_xlabel("Predicción")
+    ax.set_ylabel("Real")
+
+    st.pyplot(fig)
+
+    st.markdown("""
+---
+
+### Nota metodológica final
+
+- Las visualizaciones operativas (tacómetros y semáforos) se basan en percentiles del dataset.
+- No se infiere causalidad; la aplicación actúa como **sistema de apoyo a la decisión**.
+- La interfaz prioriza claridad operativa, manteniendo este bloque técnico oculto para no interferir
+  con el uso en contexto productivo.
+
+""")
