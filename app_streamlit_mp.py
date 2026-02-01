@@ -182,7 +182,7 @@ if st.button("Evaluar riesgo"):
 with st.expander("📘 Detalle técnico del modelo (opcional)"):
     st.markdown("""
     **Modelo**
-    - Clasificador supervisado entrenado en la Solemne 1
+    - Clasificador supervisado (Random Forest) entrenado con datos etiquetados para predecir fallas operacionales.
     - Dataset: AI4I 2020 Predictive Maintenance
 
     **Métricas**
