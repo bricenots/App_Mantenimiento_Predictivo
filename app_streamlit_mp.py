@@ -4,6 +4,8 @@ import joblib
 import json
 import plotly.graph_objects as go
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 # =========================================================
 # CONFIGURACIÓN
