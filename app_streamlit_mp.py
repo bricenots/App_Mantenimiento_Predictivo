@@ -22,7 +22,7 @@ with open("artifacts/metrics_solemne1.json", "r") as f:
     metrics = json.load(f)
 
 # Dataset solo para visualización
-df = pd.read_csv("ai4i2020.csv")
+df = pd.read_excel("artifacts/dataset_final_solemne1.xlsx")
 
 # Variables usadas
 features = [
