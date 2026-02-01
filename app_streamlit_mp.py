@@ -1,3 +1,17 @@
+st.markdown("""
+### 🎯 Objetivo del modelo
+
+Esta aplicación implementa un **modelo de clasificación supervisada** para el problema de
+**mantenimiento predictivo**, cuyo objetivo es **anticipar fallas en equipos industriales**
+a partir de variables operacionales.
+
+El modelo fue entrenado con el dataset **AI4I 2020 Predictive Maintenance** y corresponde
+a los resultados obtenidos en la **Solemne 1** del curso.
+""")
+
+
+
+
 import streamlit as st
 import pandas as pd
 import joblib
