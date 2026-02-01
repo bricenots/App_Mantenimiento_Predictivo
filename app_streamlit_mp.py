@@ -1,3 +1,18 @@
+
+import streamlit as st
+import pandas as pd
+import joblib
+import json
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+# =========================================
+# Configuración
+# =========================================
+st.set_page_config(page_title="Mantenimiento Predictivo", layout="centered")
+
+
 st.markdown("""
 ### 🎯 Objetivo del modelo
 
@@ -8,19 +23,6 @@ a partir de variables operacionales.
 El modelo fue entrenado con el dataset **AI4I 2020 Predictive Maintenance** y corresponde
 a los resultados obtenidos en la **Solemne 1** del curso.
 """)
-
-
-
-
-import streamlit as st
-import pandas as pd
-import joblib
-import json
-
-# =========================================
-# Configuración
-# =========================================
-st.set_page_config(page_title="Mantenimiento Predictivo", layout="centered")
 
 # =========================================
 # Carga de artefactos
